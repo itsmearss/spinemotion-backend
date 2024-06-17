@@ -13,10 +13,11 @@ def api_key_required(func):
                 return func(*args, **kwargs)
             else:
                 return jsonify({"message": "Please provide a correct API key"}), 400
-        except:
+        except Exception as e:
             return {
-                "message": "Api Key Not Found"
-            }
+                "message": f"Error {e}"
+            }, 500
+            
     return check_api_key
 
 

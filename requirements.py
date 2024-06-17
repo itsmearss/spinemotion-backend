@@ -1,0 +1,5 @@
+flask
+flask_jwt_extended
+flask_mail
+argon2-cffi
+flask_pymongo
