@@ -1,8 +1,7 @@
-from flask import jsonify, url_for, render_template, make_response
-from app import db, jwt, mail
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token, current_user, get_jwt_identity, jwt_required
-from flask_mail import Mail, Message
+from flask import url_for, render_template, make_response
+from app import db, mail
+from flask_jwt_extended import create_access_token
+from flask_mail import Message
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 from datetime import datetime
@@ -17,7 +16,7 @@ def register_user(data):
     password = data['password']
     confirm_password = data['confirm_password']
     default_photo = "https://res.cloudinary.com/dohsfgda5/image/upload/v1718499502/pbw0rkfl8kz2gklvwlbz.jpg"
-    datetime_now = datetime.utcnow()
+    datetime_now = datetime.now().strftime("%Y%m%d%H%M%S")
     verification_token = secrets.token_urlsafe(32)
     print(verification_token)
     
@@ -132,7 +131,6 @@ def login_user(data):
         }
     
     try:
-        print(user["password"])
         if PasswordHasher().verify(user["password"], password):
             payload = {
                 'id': str(user["_id"]),

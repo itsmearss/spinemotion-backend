@@ -15,7 +15,6 @@ def register():
     return register_user(data)
 
 @bp.route('/verify_account/<token>', methods=['GET'])
-@api_key_required
 def verify_account(token):
     return verif_user(token)
 

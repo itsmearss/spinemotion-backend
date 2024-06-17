@@ -15,9 +15,11 @@ def create_app(config_class):
     jwt.init_app(app)
     mail.init_app(app)
     
-    from app.routes import root_routes, auth_routes, user_routes
+    from app.routes import root_routes, auth_routes, user_routes, article_routes, history_routes
     app.register_blueprint(root_routes.bp)
     app.register_blueprint(auth_routes.bp)
     app.register_blueprint(user_routes.bp)
+    app.register_blueprint(article_routes.bp)
+    app.register_blueprint(history_routes.bp)
     
     return app

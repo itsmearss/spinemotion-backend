@@ -15,7 +15,7 @@ def api_key_required(func):
                 return jsonify({"message": "Please provide a correct API key"}), 400
         except Exception as e:
             return {
-                "message": f"Error {e}"
+                "message": "Tidak ada token"
             }, 500
             
     return check_api_key

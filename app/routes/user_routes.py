@@ -1,13 +1,12 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request, send_file
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from app.services.user_services import get_profile, forgot_password_user, reset_password_view_user, reset_password_user
+from app.services.user_services import get_profile, forgot_password_user, reset_password_view_user, reset_password_user, change_password_user, update_profile_service, verify_otp_service, request_change_email_service
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 
 @bp.route('/profile', methods=['GET'])
 @jwt_required()
 def profile():
-    # Implementasi untuk mengambil profil user
     current_user = get_jwt_identity()
     return get_profile(current_user)
 
@@ -28,5 +27,36 @@ def reset_password():
     email = request.form.get("email")
     return reset_password_user(password, confirm_password, email)
 
-@bp.route('/')
+@bp.route('/change-password', methods=['POST'])
+@jwt_required()
+def change_password():
+    data = request.get_json()
+    return change_password_user(data)
 
+@bp.route('/request-change-email', methods=['POST'])
+@jwt_required()
+def change_email():
+    data = request.get_json()
+    return request_change_email_service(data)
+
+@bp.route('/verify-otp', methods=['POST'])
+@jwt_required()
+def verify_new_email():
+    data = request.get_json()
+    return verify_otp_service(data)
+
+@bp.route('/update-profile', methods=['PUT'])
+@jwt_required()
+def update_profile():
+    data = request.form.to_dict()
+    
+    files=[]
+    
+    if "photo" in request.files:
+        files = request.files["photo"]
+        
+    return update_profile_service(data, files)
+
+@bp.route('/image/<image_name>', methods=["GET"])
+def get_image(image_name):
+    return send_file(f"../static/uploads/profiles/{image_name}", mimetype="image/jpeg")
