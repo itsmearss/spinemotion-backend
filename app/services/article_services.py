@@ -3,6 +3,7 @@ from flask import jsonify
 from app import db
 import datetime
 
+
 def add_article_service(data, files):
     title = data["title"]
     content = data["content"]

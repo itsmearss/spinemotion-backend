@@ -2,13 +2,17 @@ from functools import wraps
 from flask import request, jsonify
 from app import jwt, db
 
+
 def api_key_required(func):
     @wraps(func)
     def check_api_key(*args, **kwargs):
+        # print(request.headers)
         apiKey = request.headers.get('x-api-key')
+        print(apiKey)
         # Logika untuk memeriksa API key
         try:
             db_api_key = db.db.api_key.find_one({"api_key": apiKey})
+            print(db_api_key)
             if apiKey == db_api_key["api_key"]:
                 return func(*args, **kwargs)
             else:

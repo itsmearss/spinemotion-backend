@@ -31,7 +31,7 @@ def register_user(data):
     if user:
         return {
             'message': 'Email ini telah terdaftar sebelumnya, gunakan email yang lain!'
-        }
+        }, 400
         
     hashed_password = PasswordHasher().hash(password)
     
