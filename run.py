@@ -4,4 +4,4 @@ from app.config import Config
 app = create_app(Config)
 
 if __name__ == '__main__':
-    socketio.run(app, host='194.31.53.102', debug=True, port=21096)
+    socketio.run(app, host='0.0.0.0', debug=True, port=5000)
