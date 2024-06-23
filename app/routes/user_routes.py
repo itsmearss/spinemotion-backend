@@ -1,6 +1,6 @@
 from flask import Blueprint, request, send_file
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from app.services.user_services import get_profile, forgot_password_user, reset_password_view_user, reset_password_user, change_password_user, update_profile_service, verify_otp_service, request_change_email_service
+from app.services.user_services import get_profile, forgot_password_user, reset_password_view_user, reset_password_user, change_password_user, update_profile_service, verify_otp_service, request_change_email_service, perform_service
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 
@@ -56,6 +56,13 @@ def update_profile():
         files = request.files["photo"]
         
     return update_profile_service(data, files)
+
+@bp.route('/perform', methods=['GET'])
+@jwt_required()
+def perform():
+    current_user = get_jwt_identity()
+    print(current_user)
+    return perform_service(current_user)
 
 @bp.route('/image/<image_name>', methods=["GET"])
 def get_image(image_name):

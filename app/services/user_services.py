@@ -4,7 +4,7 @@ import secrets, random
 from flask_mail import Message
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
-from flask import url_for, render_template, make_response
+from flask import url_for, render_template, make_response, render_template_string
 from flask_jwt_extended import get_jwt_identity
 
 def get_profile(email):
@@ -259,3 +259,10 @@ def update_profile_service(data, files):
             "message": f"Error {e}"
         }, 500
         
+def perform_service(email):
+    id = str(db.db.users.find_one({"email": email})["_id"])
+    name = db.db.users.find_one({"email": email})["fullname"]
+    return render_template_string(f'''
+        <!doctype html>
+        <iframe src="http://10.5.9.99:8501/?user_id={id}&name={name}" width="100%" height="2000"></iframe>
+    ''')

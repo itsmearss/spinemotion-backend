@@ -53,8 +53,8 @@ def handle_image(data):
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
             
             mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_holistic.POSE_CONNECTIONS,
-                                      mp_drawing.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=4),
-                                      mp_drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2))
+                                      mp_drawing.DrawingSpec(color=(0,0,255), thickness=2, circle_radius=4),
+                                      mp_drawing.DrawingSpec(color=(255,0,0), thickness=2, circle_radius=2))
 
             try:
                 if results.pose_landmarks is not None:
