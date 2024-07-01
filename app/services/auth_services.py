@@ -100,7 +100,7 @@ def verif_user(token):
         response = make_response(render_template('response.html', success=True, message='Account has ben verified'), 400)
         response.headers['Content-Type'] = 'text/html'
         
-        db.db.token.delete_one({"email": email})
+        db.db.token.delete_one({"token": token})
         
         return response
     

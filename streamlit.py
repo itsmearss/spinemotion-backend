@@ -25,13 +25,13 @@ st.title('Visualisasi Performa Pengguna')
 if st.query_params["user_id"]:
     selected_user = st.query_params['user_id']
     user_name = st.query_params['name']
-    st.write(f'User ID yang dipilih: {selected_user}')
+    st.write(f'Nama: {user_name}')
 
     # Filter data berdasarkan user yang dipilih
     user_data = df[df['userID'] == selected_user]
 
     # Bar chart jumlah data berdasarkan nama gerakan
-    st.header(f'Jumlah Data Berdasarkan Nama Gerakan untuk User ID: {selected_user}')
+    st.header(f'Jumlah Data Berdasarkan Gerakan')
     bar_data = user_data['namaGerakan'].value_counts().sort_index()
     st.bar_chart(bar_data)
     
@@ -46,11 +46,11 @@ if st.query_params["user_id"]:
     }).fillna(0)
 
     # Bar chart jumlah gerakan benar dan salah
-    st.header(f'Jumlah Gerakan Benar dan Salah untuk User ID: {selected_user}')
+    st.header(f'Jumlah Gerakan Benar dan Salah')
     st.bar_chart(correct_incorrect_counts)
     
     # Pie chart jumlah data berdasarkan nama gerakan
-    st.header(f'Jumlah Data Berdasarkan Nama Gerakan untuk User ID: {selected_user}')
+    st.header(f'Jumlah Data Berdasarkan Gerakan')
     pie_data = user_data['namaGerakan'].value_counts().reset_index()
     pie_data.columns = ['namaGerakan', 'jumlah']
     fig = px.pie(pie_data, values='jumlah', names='namaGerakan', title='Distribusi Nama Gerakan')

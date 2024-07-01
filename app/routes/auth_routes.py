@@ -9,6 +9,7 @@ from app import db
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @bp.route('/register', methods=['POST'])
+@api_key_required
 def register():
     data = request.get_json()
     return register_user(data)
@@ -18,6 +19,7 @@ def verify_account(token):
     return verif_user(token)
 
 @bp.route('/login', methods=['POST'])
+@api_key_required
 def login():
     data = request.headers.get('Authorization')
     return login_user(data)
