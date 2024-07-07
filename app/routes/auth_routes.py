@@ -21,8 +21,16 @@ def verify_account(token):
 @bp.route('/login', methods=['POST'])
 @api_key_required
 def login():
+    
     data = request.headers.get('Authorization')
+    print(data)
     return login_user(data)
+
+@bp.route('/google-login', methods=['POST'])
+def google_login():
+    data = request.get_json()
+    return print(data)
+    
 
 
 

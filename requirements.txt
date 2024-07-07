@@ -5,3 +5,8 @@ argon2-cffi
 flask_pymongo
 streamlit
 pymongo
+mediapipe
+opencv-python
+scikit-learn
+numpy
+pandas
