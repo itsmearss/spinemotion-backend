@@ -5,30 +5,33 @@ import datetime
 
 
 def add_article_service(data, files):
-    title = data["title"]
-    content = data["content"]
-    writer = data["writer"]
-    source = data["source"]
-    photo = files
-    
-    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    filename = f"{timestamp}_image.jpg"
-    path = f"static/uploads/articles/{filename}"
-    photo.save(path)
-    
-    add_article = {
-        "title": title,
-        "content": content,
-        "writer": writer,
-        "source": source,
-        "photo": filename
-    }
-    
-    db.db.articles.insert_one(add_article)
-    
-    return {
-        "message": "Add article success"
-    }, 201
+    try:
+        title = data["title"]
+        content = data["content"]
+        writer = data["writer"]
+        source = data["source"]
+        photo = files
+        
+        timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+        filename = f"{timestamp}_image.jpg"
+        path = f"static/uploads/articles/{filename}"
+        photo.save(path)
+        
+        add_article = {
+            "title": title,
+            "content": content,
+            "writer": writer,
+            "source": source,
+            "photo": filename
+        }
+        
+        db.db.articles.insert_one(add_article)
+        
+        return {
+            "message": "Add article success"
+        }, 201
+    except Exception as e:
+        return {'message' : f"Error {e}"}, 500
     
 def get_articles_service():
     articles = db.db.articles.find()

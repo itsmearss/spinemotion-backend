@@ -13,7 +13,7 @@ def create_app(config_class):
     app = Flask(__name__)
     app.config.from_object(config_class)
     
-    socketio.init_app(app, cors_allowed_origins="*")
+    socketio.init_app(app)
     db.init_app(app)
     jwt.init_app(app)
     mail.init_app(app)

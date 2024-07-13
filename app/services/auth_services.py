@@ -8,7 +8,6 @@ from datetime import datetime
 import secrets, base64
 
 def register_user(data):
-    print(data)
     fullname = data['fullname']
     email = data['email']
     no_hp = data['no_hp']
@@ -18,7 +17,6 @@ def register_user(data):
     default_photo = "https://res.cloudinary.com/dohsfgda5/image/upload/v1718499502/pbw0rkfl8kz2gklvwlbz.jpg"
     datetime_now = datetime.now().strftime("%Y%m%d%H%M%S")
     verification_token = secrets.token_urlsafe(32)
-    print(verification_token)
     
     # Confirmation Password Check
     if password != confirm_password:
@@ -73,7 +71,6 @@ def register_user(data):
         }, 201
     
     except Exception as e:
-        print(e)
         return {
             "message": f"Error {e}"
         }, 500
